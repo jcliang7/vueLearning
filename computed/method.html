@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="basic">
+        <p>Original message: "{{message}}"</p>
+        <p>Computed reversed message:"{{reversedMessage}}"</p>
+        <p>Methods reversed message:"{{reversedMsg()}}</p>
+        <h1>now = {{now}}</h1>
+        <h1>nowM = {{nowM()}}</h1>
+        <h2>a = {{a}}</h2>
+    </div>
+</body>
+
+</html>
+
+<script>
+    var vm = new Vue({
+        el: '#basic',
+        data: {
+            message: 'Hello',
+            a : 1
+        },
+        computed: {
+            reversedMessage() {
+                console.log("computed:", this.message);
+                return this.message.split('').reverse().join('')
+            },
+            now() {
+                return Date.now();
+            }
+        },
+        methods: {
+            reversedMsg() {
+                console.log("methods:", this.message);
+                return this.message.split('').reverse().join('')
+            },
+            nowM() {
+                return Date.now();
+            }
+        }
+    })
+</script>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    </head>
+    <body>
+        <div id="watch">
+            {{fullName}}
+        </div>
+        <div id="computed">
+            <p>this is computed demo:</p>
+            {{fullName}}
+        </div>
+    </body>
+</html>
+
+<script>
+    var vm = new Vue({
+        el:'#watch',
+        data:{
+            firstName : 'Foo',
+            lastName:'Bar',
+            fullName: 'Foo Bar'
+        },
+        watch:{
+            firstName(val){
+                this.fullName = val + ' ' + this.lastName
+            },
+            lastName(val){
+                this.fullName = this.firstName + ' ' + val
+            }
+        },
+
+    })
+
+    var vm2 = new Vue({
+        el:'#computed',
+        data:{
+            firstName: 'Foo',
+            lastName: 'Bar'
+            
+        },
+        computed:{
+            fullName(){
+                return this.firstName + ' ' + this.lastName
+            }
+        }
+
+    })
+</script>
