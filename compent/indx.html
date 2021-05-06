@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    </head>
+    <body>
+        <div id="basic">
+            <my-component class="baz boo">teset</my-component>
+        </div>
+    </body>
+</html>
+
+<script>
+Vue.component('my-component', {
+  template: '<p class="foo bar">Hi</p>'
+})
+
+    var vm = new Vue({
+        el:'#basic',
+        data:{
+            message:'Hello'
+        },
+        computed:{
+            reversedMessage(){
+                return this.message.split('').reverse().join('')
+            }
+        }
+    })
+</script>
+<style>
+    .foo {
+        font-size: 50px
+    }
+    .bar {
+        text-decoration: line-through;
+    }
+    .baz {
+        color:red
+    }
+    .boo {
+        background-color: blue
+    }
+    
+</style>
