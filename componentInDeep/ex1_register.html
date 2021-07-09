@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+        <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script> -->
+    </head>
+    <body>
+        <div id="app">
+            <h1>APP</h1>
+            <cebab-component></cebab-component>
+            <pascal-component></pascal-component>
+            <!-- <PascalComponent></PascalComponent> -->
+        </div>
+    </body>
+</html>
+
+<script>
+    Vue.component('cebab-component', { 
+        template:
+        `
+        <div>
+        <h1>This-is-cebab-component</h1>  <h2></h2>
+        </div>
+        `
+
+    })
+    Vue.component('PascalComponent',{
+        template:'<h1>ThisIsPascalComponent</h1>'
+    })
+    new Vue({ el: '#app' })
+
+</script>
