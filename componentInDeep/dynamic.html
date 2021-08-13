@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="demo">
+    <button v-for="tab in tabs" v-bind:key="tab" v-bind:class="['tab-button', { active: currentTab === tab }]"
+      v-on:click="currentTab = tab">
+      {{tab}}
+    </button>
+
+    <h1>{{currentTab}}</h1>
+    <component v-bind:is="currentTabComponent" class="tab"></component>
+  </div>
+</body>
+<script>
+  Vue.component("com-1", {
+    data: function () {
+      return {
+        posts: [
+          {
+            id: 1,
+            title: "title 1",
+            content: "<p>This is post 1</p>"
+          },
+          {
+            id: 2,
+            title: "title 2",
+            content: "<p>This is post 2</p><p>This is post 2</p>"
+          },
+          {
+            id: 3,
+            title: "title 3",
+            content: "<p>This is post 3</p><p>This is post 3</p><p>This is post 3</p>"
+          }
+        ],
+        selectedPost: null
+      };
+    },
+    template: `
+    <div class="posts-tab">
+      <ul class="posts-sidebar">
+        <li
+          v-for="post in posts"
+          v-bind:key="post.id"
+          v-bind:class="{ selected: post === selectedPost }"
+					v-on:click="selectedPost = post"
+        >
+          {{ post.title }}
+        </li>
+      </ul>
+
+      <div class="selected-post-container">
+      	<div 
+        	v-if="selectedPost"
+          class="selected-post"
+        >
+          <h3>{{ selectedPost.title }}</h3>
+          <div v-html="selectedPost.content"></div>
+        </div>
+        <strong v-else>
+          Click on a blog title to the left to view it.
+        </strong>
+      </div>
+    </div>
+    `
+  });
+
+  Vue.component("com-2", {
+    template: "<div>This is tab 2</div>"
+  });
+
+  new Vue({
+    el: "#demo",
+    data: {
+      currentTab: "tab_1",
+      tabs: ["tab_1", "tab_2"],
+    },
+    computed: {
+      currentTabComponent: function () {
+        return this.currentTab.toLowerCase();
+      }
+    }
+  });
+</script>
+
+<style>
+  .tab-button {
+    padding: 6px 10px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    background: #f0f0f0;
+    margin-bottom: -1px;
+    margin-right: -1px;
+  }
+
+  .tab-button:hover {
+    background: #e0e0e0;
+  }
+
+  .tab-button.active {
+    background: #e0e0e0;
+  }
+
+  .tab {
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
+
+  .posts-tab {
+    display: flex;
+  }
+
+  .posts-sidebar {
+    max-width: 40vw;
+    margin: 0;
+    padding: 0 10px 0 0;
+    list-style-type: none;
+    border-right: 1px solid #ccc;
+  }
+
+  .posts-sidebar li {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .posts-sidebar li:hover {
+    background: #eee;
+  }
+
+  .posts-sidebar li.selected {
+    background: lightblue;
+  }
+
+  .selected-post-container {
+    padding-left: 10px;
+  }
+
+  .selected-post> :first-child {
+    margin-top: 0;
+    padding-top: 0;
+  }
+</style>

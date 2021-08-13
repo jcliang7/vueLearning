@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="demo">
+        <async-component></async-component>
+    </div>
+</body>
+<script>
+    const LoadingComponent = {
+        template: '<div>Loading...</div>'
+    };
+    const ErrorComponent = {
+        template: '<div>ErrorComponenet!!!</div>'
+    };
+    Vue.component('async-component', () => ({
+        component: new Promise((resolve, reject) => {
+            setTimeout(() => {
+                // resolve({
+                //     template: '<div>Async Component</div>'
+                // });
+                reject('Error!!!');
+            }, 3000);
+        }),
+        loading: LoadingComponent,
+        error: ErrorComponent,
+        delay: 2000,
+        timeout: 3000
+    }));
+
+
+    new Vue({
+        el: "#demo",
+        data: {
+
+        },
+        computed: {
+
+        }
+    });
+</script>

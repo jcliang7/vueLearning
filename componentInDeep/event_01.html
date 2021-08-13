@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script> -->
+</head>
+
+<body>
+    <div id="app">
+        <h1>APP</h1>
+        <base-input v-model="myInput"></base-input>
+        <label>Input</label>
+        <h1>myInput:{{myInput}}</h1>
+
+        <base-checkbox label="label 1" v-model="lovingVue"></base-checkbox>
+        <h1>LovingVue:{{lovingVue}}</h1>
+
+
+    </div>
+</body>
+
+</html>
+
+<script>
+    Vue.component('base-input', {
+        props: ['value'],
+        template:
+            `
+        <div>
+            <input 
+                v-bind:value="value"
+                v-on:input="$emit('input', $event.target.value)"
+            >
+        </div>
+        `
+    })
+
+    Vue.component('base-checkbox', {
+        model: {
+            prop: 'checked2',
+            event: 'change2'
+        },
+        props: {
+            checked: Boolean,
+            label: String,
+        },
+        template: `
+    <div>
+    <input
+      type="checkbox"
+      v-bind:checked2="checked"
+      v-on:change="$emit('change2', $event.target.checked)"
+    >
+    <label>{{label}}</label>
+    </div>
+  `
+    })
+ 
+
+
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            lovingVue: "",
+            myInput: "",
+        },
+    })
+
+</script>
